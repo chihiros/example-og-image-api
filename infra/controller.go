@@ -26,10 +26,12 @@ func (c *controller) GenOgImage(w http.ResponseWriter, r *http.Request) {
 	userName := r.URL.Query().Get("user")
 
 	// 1200x630の画像を生成
-	dc := gg.NewContext(1200, 630)
+	width := 1200
+	height := 630
+	dc := gg.NewContext(width, height)
 
 	// 左上から右下に向かってグラデーション
-	grad := gg.NewLinearGradient(0, 0, 1200, 630)
+	grad := gg.NewLinearGradient(0, 0, float64(width), float64(height))
 	grad.AddColorStop(0, color.RGBA{255, 197, 193, 255})
 	grad.AddColorStop(0.25, color.RGBA{244, 222, 244, 255})
 	grad.AddColorStop(0.6943, color.RGBA{255, 249, 195, 255})
@@ -37,12 +39,12 @@ func (c *controller) GenOgImage(w http.ResponseWriter, r *http.Request) {
 	dc.SetFillStyle(grad)
 
 	// 画像全体の矩形を描画してグラデーションを適用
-	dc.DrawRectangle(0, 0, 1200, 630)
+	dc.DrawRectangle(0, 0, float64(width), float64(height))
 	dc.Fill()
 
 	// 図形のサイズと位置を計算
-	rectWidth := 1200 - 2*43
-	rectHeight := 630 - 2*41
+	rectWidth := width - 2*43
+	rectHeight := height - 2*41
 	rectX := 43
 	rectY := 41
 
