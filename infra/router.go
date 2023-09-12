@@ -9,18 +9,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
-
-	_ "embed"
 )
-
-//go:embed embed/NotoSansJP-Medium.otf
-var fontTitle []byte
-
-//go:embed embed/NotoSansJP-Regular.otf
-var fontUserName []byte
-
-//go:embed embed/logo.png
-var logo []byte
 
 func NewRouter() *chi.Mux {
 	r := chi.NewRouter()

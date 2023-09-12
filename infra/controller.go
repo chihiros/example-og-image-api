@@ -9,7 +9,18 @@ import (
 	"github.com/fogleman/gg"
 	"github.com/nfnt/resize"
 	"golang.org/x/image/font/opentype"
+
+	_ "embed"
 )
+
+//go:embed embed/NotoSansJP-Medium.otf
+var fontTitle []byte
+
+//go:embed embed/NotoSansJP-Regular.otf
+var fontUserName []byte
+
+//go:embed embed/logo.png
+var logo []byte
 
 type Controller interface {
 	GenOgImage(w http.ResponseWriter, r *http.Request)
