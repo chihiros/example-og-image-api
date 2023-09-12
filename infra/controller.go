@@ -108,19 +108,6 @@ func (c *controller) GenOgImage(w http.ResponseWriter, r *http.Request) {
 		y += 82
 	}
 
-	// サイトのロゴを挿入
-	logoImg, _, err := image.Decode(strings.NewReader(string(logo)))
-	if err != nil {
-		http.Error(w, "Failed to decode logo image", http.StatusInternalServerError)
-		return
-	}
-
-	// ロゴのサイズを変更
-	resizedLogoImg := resize.Resize(0, 150, logoImg, resize.Lanczos3)
-
-	// ロゴを挿入
-	dc.DrawImage(resizedLogoImg, 800, 430)
-
 	// フォントを読み込む
 	fontFace, err = opentype.Parse(fontUserName)
 	if err != nil {
@@ -143,6 +130,19 @@ func (c *controller) GenOgImage(w http.ResponseWriter, r *http.Request) {
 		dc.DrawString(line, x, y)
 		y += 48
 	}
+
+	// サイトのロゴを挿入
+	logoImg, _, err := image.Decode(strings.NewReader(string(logo)))
+	if err != nil {
+		http.Error(w, "Failed to decode logo image", http.StatusInternalServerError)
+		return
+	}
+
+	// ロゴのサイズを変更
+	resizedLogoImg := resize.Resize(0, 150, logoImg, resize.Lanczos3)
+
+	// ロゴを挿入
+	dc.DrawImage(resizedLogoImg, 800, 430)
 
 	// 画像をレスポンスとして返す
 	w.Header().Set("Content-Type", "image/png")
