@@ -92,7 +92,7 @@ func (c *controller) GenOgImage(w http.ResponseWriter, r *http.Request) {
 	y := 175.0
 	for _, line := range strings.Split(formatTitle, "\n") {
 		dc.DrawString(line, x, y)
-		y += 64
+		y += 82
 	}
 
 	// サイトのロゴを挿入
